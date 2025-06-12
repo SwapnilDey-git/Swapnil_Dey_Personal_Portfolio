@@ -1,28 +1,73 @@
-# Swapnil Dey - Personal Portfolio
-# https://swapnil-portfolio-two.vercel.app/
 
-## Overview
-This repository contains a personal portfolio website showcasing projects, skills, and contact information. The primary entry point is the `index.html` file, which demonstrates web design, responsive layouts, and personal branding.
+## 🌐 Swapnil Dey – Personal Portfolio
 
-## Features
-- Responsive design built with HTML, CSS, and Bootstrap
-- Containerized sections for projects, experience, and contact
-- Scripted animations and transitions using JS and GSAP
+Welcome to my personal portfolio website, built to showcase my projects, certifications, achievements, and areas of expertise in Cybersecurity, AI, and Web Development.
 
-## Getting Started
-1. Clone or download the repository.
-2. Open `index.html` in your browser to view the website.
-3. Modify the HTML, CSS, or JS as needed.
+🚀 **Deployed on:** [Vercel](https://swapnil-dey-personal-portfolio.vercel.app)  
+🔗 **GitHub Repo:** [Swapnil_Dey_Personal_Portfolio](https://github.com/SwapnilDey-git/Swapnil_Dey_Personal_Portfolio)
 
-## Technologies Used
-- HTML5, CSS3, Bootstrap
-- JavaScript, GSAP, jQuery
-- Python, Django, PostgreSQL (mentioned as part of the skillset)
 
-## Contact
-For more information, visit:
-[Swapnil’s LinkedIn](https://www.linkedin.com/in/swapnil-dey-173249265/)  
-[Swapnil’s GitHub](https://github.com/SwapnilDey-git)
 
-## License
-No specific license is included in this project. Feel free to customize and adapt the code as needed.
+## 🛠️ Tech Stack
+
+- **Frontend:** HTML5, CSS3, JavaScript
+- **Deployment:** Vercel
+- **Form Handling:** [FormSubmit](https://formsubmit.co/)
+- **Version Control:** Git & GitHub
+
+---
+
+## 📬 Contact Form Setup
+
+This portfolio uses FormSubmit to handle form submissions without needing a backend.
+
+```html
+<form action="https://formsubmit.co/e178ee89-1943-439f-afa4-99ccd06bb6bf" method="POST">
+  <input type="hidden" name="access_key" value="e178ee89-1943-439f-afa4-99ccd06bb6bf">
+  <input type="hidden" name="subject" value="New Submission from Portfolio">
+  <input type="hidden" name="from_name" value="Portfolio Contact">
+  <input type="hidden" name="redirect" value="thankyou.html">
+</form>
+````
+
+---
+
+## ✨ Features
+
+* Fully responsive layout
+* Smooth scrolling and interactive navigation
+* Contact form with redirection
+* Deployed with GitHub → Vercel CI/CD integration
+
+---
+
+## 🚀 Planned Enhancements
+
+* Add blog or article writing section
+* GitHub contribution & stats integration
+* Dark/light mode toggle
+* Project category filters
+* AI assistant / chatbot integration
+
+---
+
+## 👤 Author
+
+**Swapnil Dey**
+Student, B.Tech in Information Technology, KIIT University
+Cybersecurity | AI | Web Development | CTFs
+
+* [GitHub](https://github.com/SwapnilDey-git)
+* [LinkedIn](https://www.linkedin.com/in/swapnil-dey-173249265/)
+* [Email](mailto:your-sdey30525@gmail.com.com)
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+```
+
+> 🔧 Replace `yourprofile` and `your-email@example.com` with your actual LinkedIn and email if you want them public.
+```
