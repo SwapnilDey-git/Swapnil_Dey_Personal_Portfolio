@@ -66,8 +66,3 @@ Cybersecurity | AI | Web Development | CTFs
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
-
-```
-
-> 🔧 Replace `yourprofile` and `your-email@example.com` with your actual LinkedIn and email if you want them public.
-```
