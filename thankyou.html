@@ -81,6 +81,8 @@
                 <div style="padding-top: 3rem;"></div>
                 <h1 class="mb-5">THANK YOU<span class="green-square"></span></h1>
                 <p>Your submission was successful. I'll get back to you as soon as possible.</p>
+                <!-- Add this link to go back to home while matching existing button style -->
+                <a href="index.html" class="btn btn-submit mt-4">BACK TO HOME</a>
             </div>
         </section>
         <!-- THANK YOU SECTION END -->
@@ -120,6 +122,16 @@
     <script src="Assets/js/service-section.js"></script>
     <script src="Assets/js/testimonial.js"></script>
     <script src="Assets/js/app.js"></script>
+    <script>
+        // Display current time in the #time element in 12-hour format with AM/PM
+        function updateTime() {
+            const now = new Date();
+            // Format time as HH:MM:SS AM/PM
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+            document.getElementById('time').textContent = timeString;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
 </body>
 </html>
-```
