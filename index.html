@@ -55,6 +55,8 @@
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel="stylesheet" href="Assets/css/navbar.css">
     <link rel="stylesheet" href="Assets/css/responsive.css">
+    <!-- xterm.js CSS (place in <head> if not already included) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.min.css" />
 </head>
 
 <body>
@@ -102,7 +104,6 @@
                                 <li><a class="menu-item" href="#about">ABOUT</a></li>
                                 <li><a class="menu-item" href="#experience">EXPERIENCE</a></li>
                                 <li><a class="menu-item" href="#contact">CONTACT</a></li>
-                                
                             </ul>
                             <div class="social-container">
                                 <a href="https://github.com/SwapnilDey-git" class="social-icon"
@@ -703,6 +704,93 @@ of system outages and data breaches, which improved system uptime.
     <script src="Assets/js/testimonial.js"></script>
     <script src="Assets/js/app.js"></script>
     <script defer src="https://vercel.com/analytics/script.js"></script>
+
+    <!-- Terminal Button Section -->
+    <div style="display: flex; justify-content: center; align-items: center; margin: 3rem 0;">
+        <button 
+            onclick="window.location.href='terminal.html';"
+            style="
+                background: linear-gradient(90deg, #23272f 0%, #1a1d23 100%);
+                color: #ffffff;
+                border: none;
+                border-radius: 40px;
+                padding: 18px 48px;
+                font-size: 1.3rem;
+                font-family: 'Bruno Ace SC', 'Inter', sans-serif;
+                font-weight: 700;
+                letter-spacing: 2px;
+                box-shadow: 0 8px 32px rgba(247, 247, 247, 0.15);
+                cursor: pointer;
+                transition: transform 0.15s, box-shadow 0.15s;
+                outline: none;
+                position: relative;
+                overflow: hidden;
+            "
+            onmouseover="this.style.transform='scale(1.07)';this.style.boxShadow='0 12px 40px rgba(0,255,153,0.25)';"
+            onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 8px 32px rgba(0,255,153,0.15)';"
+        >
+            <span style="margin-right: 12px;">
+                <i class="fa-solid fa-terminal"></i>
+            </span>
+            Try My Interactive Terminal
+            <span style="margin-left: 12px;">
+                <i class="fa-solid fa-arrow-right"></i>
+            </span>
+        </button>
+    </div>
+
+    <!-- Floating Terminal Button -->
+    <div 
+        id="floating-terminal-btn"
+        onclick="window.location.href='terminal.html';"
+        style="
+            position: fixed;
+            bottom: 20px;
+            left: 50px; /* Adjusted to move slightly to the right */
+            background: linear-gradient(90deg, #23272f 0%, #1a1d23 100%);
+            color: #ffffff; /* White icon and text */
+            border: none;
+            border-radius: 50%; /* Fully circular */
+            padding: 20px;
+            font-size: 1.5rem;
+            font-family: 'Bruno Ace SC', 'Inter', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 32px #ffffff26;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            outline: none;
+            z-index: 9999;
+            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        "
+        onmouseover="this.style.transform='scale(1.2)';this.style.boxShadow='0 12px 40px rgba(0,255,153,0.25)';"
+        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 8px 32px rgba(0,255,153,0.15)';"
+    >
+        <i class="fa-solid fa-terminal" style="color: #ffffff;"></i> <!-- White icon -->
+        <span style="color: #ffffff;">Terminal</span> <!-- White text -->
+    </div>
+
+    <!-- Add CSS Animation -->
+    <style>
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 8px 32px rgba(0, 255, 153, 0.15);
+        }
+        50% {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(0, 255, 153, 0.25);
+        }
+        100% {
+            transform: scale(1);
+            box-shadow: 0 8px 32px rgba(0, 255, 153, 0.15);
+        }
+    }
+    </style>
 </body>
 
 </html>

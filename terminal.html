@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terminal – Swapnil Dey</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.min.css" />
+  <style>
+   html, body { height: 100%; margin: 0; background: inherit; color: inherit; }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #0d0d0d;
+      color: #00ff00;
+      font-family: monospace;
+      transition: background-color 0.5s ease;
+    }
+    #terminal {
+      height: 100%;
+      width: 100%;
+    }
+    .xterm {
+      font-family: monospace;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+  <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.min.js"></script>
+  <script>
+  const projects = [
+    { name: "InsightFlow", link: "https://github.com/SwapnilDey-git/InsightFlow" },
+    { name: "Assistencia",  link: "https://github.com/SwapnilDey-git/Assistencia" },
+    { name: "URL-Checker", link: "https://github.com/SwapnilDey-git/url-checker" }
+  ];
+  const resumeURL = "https://raw.githubusercontent.com/SwapnilDey-git/Swapnil_Dey_Personal_Portfolio/main/assets/resume.txt";
+
+  const helloArtSets = [
+  ["Wishing you a brilliant day! — English 🇬🇧"],
+  ["आपका दिन शुभ हो! — Hindi 🇮🇳"],
+  ["¡Que tengas un día increíble! — Spanish 🇪🇸"],
+  ["Passez une journée magnifique ! — French 🇫🇷"],
+  ["Ti auguro una splendida giornata! — Italian 🇮🇹"],
+  ["素敵な一日をお過ごしください！— Japanese 🇯🇵"],
+  ["祝你今天愉快！— Chinese 🇨🇳"],
+  ["Ich wünsche dir einen großartigen Tag! — German 🇩🇪"],
+  ["Desejo-lhe um dia espetacular! — Portuguese 🇧🇷"],
+  ["Желаю тебе отличного дня! — Russian 🇷🇺"]
+];
+
+  const techQuotes = [
+    "Talk is cheap. Show me the code. — Linus Torvalds",
+    "First, solve the problem. Then, write the code.",
+    "Experience is the name everyone gives to their mistakes. — Oscar Wilde",
+    "Any fool can write code that a computer can understand. Good programmers write code that humans can understand. — Martin Fowler",
+    "Code never lies, comments sometimes do."
+  ];
+
+  const terminal = new Terminal({
+    cols: 80,
+    rows: 24,
+    theme: { background: "#0d0d0d", foreground: "#00ff00" }
+  });
+  terminal.open(document.getElementById("terminal"));
+
+  function prompt() {
+    terminal.write("\r\n$ ");
+  }
+
+  terminal.writeln("Swapnil Dey interactive CLI – type 'help' to see available commands.");
+  prompt();
+
+  let cmdBuffer = "";
+  const commandHistory = [];
+  let historyIndex = -1;
+  let isCommandRunning = false; // Track if a command is running
+
+  terminal.onKey(({ key, domEvent }) => {
+    const printable = !domEvent.altKey && !domEvent.ctrlKey && !domEvent.metaKey;
+
+    switch (domEvent.key) {
+      case "Enter":
+        if (!isCommandRunning) {
+          terminal.write("\r\n");
+          isCommandRunning = true; // Mark command as running
+          handleCommand(cmdBuffer.trim());
+          if (cmdBuffer.trim()) commandHistory.push(cmdBuffer.trim());
+          cmdBuffer = "";
+          historyIndex = commandHistory.length;
+          prompt();
+          isCommandRunning = false; // Reset after command finishes
+        }
+        break;
+
+      case "Backspace":
+        if (cmdBuffer.length > 0) {
+          terminal.write("\b \b");
+          cmdBuffer = cmdBuffer.slice(0, -1);
+        }
+        break;
+      case "ArrowUp":
+        if (historyIndex > 0) {
+          historyIndex--;
+          clearCurrentLine();
+          cmdBuffer = commandHistory[historyIndex];
+          terminal.write(cmdBuffer);
+        }
+        break;
+      case "ArrowDown":
+        if (historyIndex < commandHistory.length - 1) {
+          historyIndex++;
+          clearCurrentLine();
+          cmdBuffer = commandHistory[historyIndex];
+          terminal.write(cmdBuffer);
+        } else {
+          clearCurrentLine();
+          cmdBuffer = "";
+        }
+        break;
+      case "c":
+        if (domEvent.ctrlKey) {
+          // Handle Ctrl+C
+          if (isCommandRunning) {
+            terminal.write("^C\r\n");
+            isCommandRunning = false; // Cancel the running command
+            terminal.writeln("Command canceled.");
+            prompt();
+          } else {
+            terminal.write("^C\r\n");
+            prompt();
+          }
+        }
+        break;
+      default:
+        if (printable) {
+          terminal.write(key);
+          cmdBuffer += key;
+        }
+    }
+  });
+
+  function clearCurrentLine() {
+    terminal.write("\r$ " + " ".repeat(cmdBuffer.length) + "\r$ ");
+  }
+
+  async function handleCommand(input) {
+    const args = input.trim().split(" ");
+    const cmd = args.shift().toLowerCase();
+
+    switch (cmd) {
+      case "help":
+        terminal.writeln("Available commands:");
+        terminal.writeln("  ls projects/");
+        terminal.writeln("  open <project>");
+        terminal.writeln("  cat resume.md");
+        terminal.writeln("  whoami");
+        terminal.writeln("  hello");
+        terminal.writeln("  clear");
+        terminal.writeln("  help");
+        terminal.writeln("  ask <question>");
+        terminal.writeln("  matrix");
+        terminal.writeln("  coffee");
+        terminal.writeln("  linkedin");
+        terminal.writeln("  github");
+        terminal.writeln("  email");
+        terminal.writeln("  contact");
+        break;
+
+      case "hello":
+        const greet = helloArtSets[Math.floor(Math.random() * helloArtSets.length)];
+        greet.forEach(line => terminal.writeln(line));
+        break;
+
+      case "clear":
+        terminal.clear();
+        break;
+
+      case "whoami":
+        terminal.writeln("You are now navigating the interactive CLI of Swapnil Dey's Developer Portfolio — explore projects, access resources, and connect directly through commands.");
+        break;
+
+      case "ls":
+        if (args[0] === "projects/") {
+          projects.forEach(p => terminal.writeln(`- ${p.name}`));
+        } else {
+          terminal.writeln("Usage: ls projects/");
+        }
+        break;
+
+      case "open":
+        const proj = projects.find(p => p.name.toLowerCase() === args.join(" ").toLowerCase());
+        if (proj) {
+          window.open(proj.link, "_blank");
+          terminal.writeln(`Opening ${proj.name}...`);
+        } else {
+          terminal.writeln("Project not found.");
+        }
+        break;
+
+      case "cat":
+        if (args[0] === "resume.md") {
+          try {
+            const res = await fetch(resumeURL);
+            const text = await res.text();
+            terminal.writeln(text);
+          } catch {
+            terminal.writeln("Unable to fetch resume.");
+          }
+        } else {
+          terminal.writeln("Usage: cat resume.md");
+        }
+        break;
+
+      case "ask":
+        const question = args.join(" ");
+        if (!question) {
+          terminal.writeln("Usage: ask <question>");
+          break;
+        }
+        terminal.writeln("Talking to AI...");
+        try {
+          const response = await fetch("http://localhost:3000/api/ask", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question })
+          });
+          const data = await response.json();
+          if (data.answer) terminal.writeln("AI: " + data.answer);
+          else terminal.writeln("AI Error: " + data.error);
+        } catch (err) {
+          terminal.writeln("Error talking to AI: " + err.message);
+        }
+        break;
+
+      case "matrix":
+  terminal.writeln("Launching Matrix effect... (Press F5 to stop)");
+  
+  // Avoid duplicates
+  if (document.getElementById("matrix-canvas")) break;
+
+  const canvas = document.createElement("canvas");
+  canvas.id = "matrix-canvas";
+  canvas.style.position = "fixed";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+  canvas.style.zIndex = "9999";
+  canvas.style.pointerEvents = "none";
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext("2d");
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  canvas.width = width;
+  canvas.height = height;
+
+  const fontSize = 16;
+  const columns = Math.floor(width / fontSize);
+  const drops = Array(columns).fill(1);
+  const letters = "アァイィウエエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホ0123456789".split("");
+
+  function drawMatrix() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = "#0F0";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = letters[Math.floor(Math.random() * letters.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+
+  let matrixInterval = setInterval(drawMatrix, 33);
+
+  // Optional: Stop on ESC
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      clearInterval(matrixInterval);
+      document.getElementById("matrix-canvas")?.remove();
+      terminal.writeln("Matrix effect stopped.");
+    }
+  });
+  break;
+
+
+      case "coffee":
+        terminal.writeln(techQuotes[Math.floor(Math.random() * techQuotes.length)]);
+        break;
+
+            
+      case "github":
+        terminal.writeln("Opening GitHub...");
+        window.open("https://github.com/SwapnilDey-git", "_blank");
+        break;
+
+      case "linkedin":
+        terminal.writeln("Opening LinkedIn...");
+        window.open("https://www.linkedin.com/in/swapnil-dey-173249265/", "_blank");
+        break;
+      case "email":
+        terminal.writeln("Email: sdey30525@gmail.com");
+        break;
+
+      case "contact":
+        terminal.writeln("Swapnil Dey Contact:");
+        terminal.writeln("- 📧 Email: sdey30525@gmail.com");
+        terminal.writeln("- 💼 LinkedIn: https://www.linkedin.com/in/swapnil-dey-173249265/");
+        terminal.writeln("- 🐙 GitHub: https://github.com/SwapnilDey-git");
+        break;
+
+      default:
+        terminal.writeln(`command not found: ${cmd}`);
+    }
+  }
+</script>
+</body>
+</html>
