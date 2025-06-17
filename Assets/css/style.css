@@ -1049,42 +1049,6 @@ a {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 /* CONTACT PAGE */
 
@@ -1160,4 +1124,100 @@ a {
     font-size: clamp(1.375rem, 2vw + 1px, 1.375rem);
     line-height: 1.6875rem;
     font-family: var(--font_inter_tight);
+}
+
+/* New Membership Section Styles */
+.membership-section {
+    margin-top: 4rem;
+}
+
+.membership {
+    position: relative;
+    padding: 5px 0; /* Reduced padding to make the gap smaller */
+    overflow: hidden;
+    background: transparent;
+}
+
+.membership-items {
+    position: relative;
+}
+
+.membership-item {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.07);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.membership-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 15px;
+    border-radius: 8px;
+}
+
+.membership-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.membership-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.membership .description {
+    color: #cccccc;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.blob {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent);
+    border-radius: 50%;
+    z-index: 1;
+    filter: blur(60px);
+    animation: float 10s ease-in-out infinite;
+}
+
+.blob1 {
+    top: -50px;
+    left: -50px;
+}
+
+.blob2 {
+    bottom: 0;
+    right: -80px;
+}
+
+.blob3 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: scale(1) translateY(0);
+    }
+
+    50% {
+        transform: scale(1.1) translateY(-10px);
+    }
+}
+
+.experience-section {
+    margin-bottom: 2px; /* Reduced margin to decrease the gap */
 }
