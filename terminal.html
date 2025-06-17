@@ -118,18 +118,10 @@
           cmdBuffer = "";
         }
         break;
-      case "c":
-        if (domEvent.ctrlKey) {
-          // Handle Ctrl+C
-          if (isCommandRunning) {
-            terminal.write("^C\r\n");
-            isCommandRunning = false; // Cancel the running command
-            terminal.writeln("Command canceled.");
-            prompt();
-          } else {
-            terminal.write("^C\r\n");
-            prompt();
-          }
+      case "Escape":
+        if (cmdBuffer.length > 0) {
+          clearCurrentLine();
+          cmdBuffer = "";
         }
         break;
       default:
