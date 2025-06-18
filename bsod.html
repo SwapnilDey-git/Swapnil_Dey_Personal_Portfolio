@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Terminal Self-Destruct</title>
+  <style>
+    body {
+      background-color: black;
+      color: lime;
+      font-family: monospace;
+      padding: 1em;
+    }
+    #terminal {
+      white-space: pre-wrap;
+    }
+    #bsod-screen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0078D7;
+      color: white;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding: 80px;
+      box-sizing: border-box;
+      z-index: 9999;
+    }
+    .face { font-size: 80px; margin-bottom: 30px; }
+    .message { font-size: 26px; max-width: 800px; line-height: 1.6; }
+    .progress { margin-top: 30px; font-size: 22px; }
+    .qr { position: absolute; bottom: 100px; left: 80px; }
+    .note { position: absolute; bottom: 40px; left: 80px; font-size: 18px; }
+  </style>
+</head>
+<body>
+
+<div id="terminal"></div>
+
+<div id="bsod-screen">
+  <div class="face">:(</div>
+  <div class="message">
+    Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.
+  </div>
+  <div class="progress" id="progress">0% complete</div>
+  <div class="qr">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://www.windows.com/stopcode" alt="QR Code">
+  </div>
+  <div class="note">
+    For more information about this issue and possible fixes, visit https://www.windows.com/stopcode<br>
+    If you call a support person, give them this info:<br>
+    Stop code: CRITICAL_PROCESS_DIED
+  </div>
+</div>
+
+<script>
+  const terminal = document.getElementById("terminal");
+  const lines = [
+    "$ sudo rm -rf /",
+    "[sudo] password for user: ********",
+    "rm: removing everything recursively from / ...",
+    "warning: permissions denied on /boot",
+    "warning: permissions denied on /sys",
+    "deleting: /bin/bash",
+    "deleting: /usr/lib",
+    "kernel panic: unexpected halt...",
+    ""
+  ];
+
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i >= lines.length) {
+      clearInterval(interval);
+      triggerBSOD();
+    } else {
+      terminal.textContent += lines[i] + "\n";
+      window.scrollTo(0, document.body.scrollHeight);
+      i++;
+    }
+  }, 800);
+
+  function triggerBSOD() {
+    document.getElementById("bsod-screen").style.display = "block";
+    let percent = 0;
+    const progress = document.getElementById("progress");
+    const bsodInterval = setInterval(() => {
+      if (percent >= 100) {
+        clearInterval(bsodInterval);
+        return;
+      }
+      percent++;
+      progress.textContent = `${percent}% complete`;
+    }, 100);
+  }
+</script>
+
+</body>
+</html>

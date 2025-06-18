@@ -23,10 +23,33 @@
       font-family: monospace;
       font-size: 15px;
     }
+     .hidden { display: none !important; }
+  .corrupted {
+    animation: flicker 0.1s infinite alternate;
+    color: red;
+    font-weight: bold;
+  }
+
+  @keyframes flicker {
+    from { opacity: 1; }
+    to { opacity: 0.4; }
+  }
   </style>
+  <script src="meltdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xterm@4.9.0/lib/xterm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xterm@4.9.0/lib/addons/fit/fit.js"></script>  
 </head>
 <body>
   <div id="terminal"></div>
+ <div id="meltdown" class="hidden"
+     style="position:fixed; top:0; left:0; width:100vw; height:100vh;
+            background:black; color:lime; z-index:9999; padding:1em;
+            font-family:monospace; overflow:auto;">
+  <pre id="meltdown-output" style="white-space:pre-wrap;"></pre>
+  <audio id="meltdown-sound"
+         src="https://www.soundjay.com/button/beep-10.mp3"
+         preload="auto"></audio>
+</div>
   <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.min.js"></script>
   <script>
   const projects = [
@@ -92,7 +115,6 @@
           isCommandRunning = false; // Reset after command finishes
         }
         break;
-
       case "Backspace":
         if (cmdBuffer.length > 0) {
           terminal.write("\b \b");
@@ -132,6 +154,7 @@
     }
   });
 
+
   function clearCurrentLine() {
     terminal.write("\r$ " + " ".repeat(cmdBuffer.length) + "\r$ ");
   }
@@ -157,6 +180,7 @@
         terminal.writeln("  github");
         terminal.writeln("  email");
         terminal.writeln("  contact");
+        terminal.writeln("  sudo rm -rf / (Warning ! )");
         break;
 
       case "hello":
@@ -307,6 +331,16 @@
         terminal.writeln("- 💼 LinkedIn: https://www.linkedin.com/in/swapnil-dey-173249265/");
         terminal.writeln("- 🐙 GitHub: https://github.com/SwapnilDey-git");
         break;
+      case "sudo":
+        if (args.join(" ") === "rm -rf /") {
+          terminal.writeln("Initiating meltdown... 💣");
+          triggerMeltdown();
+          terminal.writeln("Meltdown initiated! 💥");
+        } else {
+          terminal.writeln("Permission denied: sudo requires a valid command.");
+        }
+        break;
+
 
       default:
         terminal.writeln(`command not found: ${cmd}`);
@@ -314,4 +348,45 @@
   }
 </script>
 </body>
+<div id="bsod-screen" class="hidden" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0078D7;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2em;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 1.2em;
+  line-height: 1.6;
+">
+   <p style="font-size: 6rem; margin-bottom: 1em; font-weight: bold;">:(</p>
+  <img
+    src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://windows.com/stopcode"
+    alt="BSOD QR Code"
+    style="position:absolute; top:20px; left:50%; transform:translateX(-55%); border:5px solid white; padding:0;"
+  />
+  <p>Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.</p>
+  <p>If you’d like to know more, you can search online later for this error: <strong>CRITICAL_PROCESS_DIED</strong></p>
+  <p class="progress" id="progress">0% complete</p>
+  <p class="message">For more information about this issue and possible fixes, visit <a href="https://windows.com/stopcode" style="color: #00ff00;">https://windows.com/stopcode</a></p>
+  
+  <p style="position:absolute; bottom:1em; left:2em;">Press ESC to exit simulation.</p>
+</div>
+<script>
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    document.getElementById("bsod-screen").classList.add("hidden");
+  }
+});
+</script>
+
+
+
 </html>

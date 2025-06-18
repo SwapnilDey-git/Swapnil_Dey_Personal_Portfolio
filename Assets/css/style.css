@@ -1221,3 +1221,35 @@ a {
 .experience-section {
     margin-bottom: 2px; /* Reduced margin to decrease the gap */
 }
+
+#meltdown {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: black;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  overflow-y: auto;
+  padding: 20px;
+  z-index: 9999;
+  animation: flicker 0.1s infinite;
+}
+
+@keyframes flicker {
+  0% { background-color: black; }
+  50% { background-color: #220000; }
+  100% { background-color: black; }
+}
+
+.hidden {
+  display: none;
+}
+.corrupted {
+  color: red;
+  animation: glitch 0.2s infinite alternate;
+}
+@keyframes glitch {
+  0% { transform: skewX(0deg); }
+  100% { transform: skewX(10deg); }
+}
